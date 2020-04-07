@@ -4,6 +4,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let OptimizeCss = require('optimize-css-assets-webpack-plugin');
 let UglifyJs = require('uglifyjs-webpack-plugin');
+let webpack = require('webpack');
 
 module.exports = {
     devServer: {    //开发服务器的配置
@@ -42,10 +43,18 @@ module.exports = {
 
         new MiniCssExtractPlugin({
             filename: 'main.css',   //将所有 css 抽出到 main.css 中
+        }),
+
+        new webpack.ProvidePlugin({    //在每个模块中都注入 $
+            $: 'jquery'
         })
     ],
     module: { //模块
         rules: [    //模块规则
+            // {
+            //     test: require.resolve('jquery'),    //配置expose-loader,将jquery中的 $ 暴露为全局变量
+            //     use: "expose-loader?$!"
+            // },
             {
                 test: /\.js$/,
                 use: {
@@ -62,7 +71,7 @@ module.exports = {
                     }
                 },
                 exclude: /node_modules/,
-                include: path.resolve(__dirname,'src')
+                include: path.resolve(__dirname, 'src')
             },
             {
                 test: /\.css$/,

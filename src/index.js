@@ -29,3 +29,8 @@ console.log(aex.a);
 
 // @babel/polyfill 会用es5语法，实现重新一些es6中的api
 'aaa'.includes('a');
+
+// import $ from 'expose-loader?$!jquery'; // 用 expose-loader 将 变量 暴露 为全局变量 这种写法是内联loader
+// pre 前置loader  normal 普通loader  内联loader  post 后置loader
+// import $ from 'jquery';
+console.log($);
