@@ -2,6 +2,7 @@
 let str = require('./str');
 require('./index-style.css');
 require('./index-style.less');
+require('@babel/polyfill');
 console.log(str);
 
 let fn = () => {
@@ -25,3 +26,6 @@ class A {
 
 let aex = new A();
 console.log(aex.a);
+
+// @babel/polyfill 会用es5语法，实现重新一些es6中的api
+'aaa'.includes('a');

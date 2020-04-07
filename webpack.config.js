@@ -56,10 +56,13 @@ module.exports = {
                         ],
                         plugins: [
                             ["@babel/plugin-proposal-decorators", {"legacy": true}],    //处理装饰器语法
-                            ["@babel/plugin-proposal-class-properties", {"loose": true}]    //处理class语法
+                            ["@babel/plugin-proposal-class-properties", {"loose": true}],    //处理class语法
+                            "@babel/plugin-transform-runtime"
                         ]
                     }
-                }
+                },
+                exclude: /node_modules/,
+                include: path.resolve(__dirname,'src')
             },
             {
                 test: /\.css$/,
@@ -84,7 +87,7 @@ module.exports = {
                     //         //可以在其中对进行配置
                     //     }
                     // },
-                    MiniCssExtractPlugin.loader, //用来代替 style-loader
+                    MiniCssExtractPlugin.loader,  //用来代替 style-loader
                     'css-loader',   //配置css-loader 可以解析@import这种语法
                     'postcss-loader', //给样式自动加上前缀
                     'less-loader'   //.less 转换为 .css
