@@ -2,6 +2,9 @@
 let path = require('path');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let OptimizeCss = require('optimize-css-assets-webpack-plugin');
+let UglifyJs = require('uglifyjs-webpack-plugin');
+
 module.exports = {
     devServer: {    //开发服务器的配置
         port: 8888,
@@ -9,6 +12,16 @@ module.exports = {
         contentBase: './dist',
         open: true,    //自动打开浏览器
         compress: true,    //对代码进行压缩
+    },
+    optimization: {     //优化项
+        minimizer: [
+            new UglifyJs({      //UglifyJs只能压缩ES5，需要安装配置 babel 之后，将ES6转化为ES5再进行压缩
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }),
+            new OptimizeCss()
+        ]
     },
     mode: 'production',   //打包模式 分为 production development
     entry: "./src/index.js",   //入口
@@ -44,6 +57,7 @@ module.exports = {
                     // },
                     MiniCssExtractPlugin.loader, //用来代替 style-loader
                     'css-loader',   //配置css-loader 可以解析@import这种语法
+                    'postcss-loader', //给样式自动加上前缀
                 ]
             },
             {
@@ -57,7 +71,8 @@ module.exports = {
                     // },
                     MiniCssExtractPlugin.loader, //用来代替 style-loader
                     'css-loader',   //配置css-loader 可以解析@import这种语法
-                    'less-loader'   //.less -> .css
+                    'postcss-loader', //给样式自动加上前缀
+                    'less-loader'   //.less 转换为 .css
                 ]
             },
             //loader的特点是，功能专一
