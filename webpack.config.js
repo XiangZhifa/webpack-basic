@@ -41,11 +41,26 @@ module.exports = {
         }),
 
         new MiniCssExtractPlugin({
-            filename: 'main.css', //将所有 css 抽出到 main.css 中
+            filename: 'main.css',   //将所有 css 抽出到 main.css 中
         })
     ],
     module: { //模块
         rules: [    //模块规则
+            {
+                test: /\.js$/,
+                use: {
+                    loader: "babel-loader",
+                    options: {    //用 babel-loader 将 ES6 转化为 ES5
+                        presets: [
+                            '@babel/preset-env'
+                        ],
+                        plugins: [
+                            ["@babel/plugin-proposal-decorators", {"legacy": true}],    //处理装饰器语法
+                            ["@babel/plugin-proposal-class-properties", {"loose": true}]    //处理class语法
+                        ]
+                    }
+                }
+            },
             {
                 test: /\.css$/,
                 use: [
