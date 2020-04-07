@@ -1,8 +1,8 @@
 //所有的ES6语法，如果不用babel转化为ES5会报错
 let str = require('./str');
-require('./index-style.css');
 require('./index-style.less');
 require('@babel/polyfill');
+
 console.log(str);
 
 let fn = () => {
@@ -34,3 +34,14 @@ console.log(aex.a);
 // pre 前置loader  normal 普通loader  内联loader  post 后置loader
 // import $ from 'jquery';
 console.log($);
+
+//webpack打包图片
+//1) 在js中创建图片引入
+import logo from '../public/assets/logo.png';    //将图片引入,返回的结果是一个新的图片地址
+let img = new Image();
+// img.src = './public/assets/logo.png';    //不能用相对路径进行配置,否则会报404错误
+img.src = logo;
+document.body.appendChild(img);
+//2) 在css中 通过 background('url') 引入
+// ！！！见index-style.less
+//3) <img src="" alt="">

@@ -56,6 +56,31 @@ module.exports = {
             //     use: "expose-loader?$!"
             // },
             {
+                test: /\.html$/,
+                use: 'html-withimg-loader' //将 html中引用的图片 转化为 dist目录下的图片
+            },
+            {
+                test: /\.(png|jpeg|gif)$/,
+                //做一个限制，当图片小于多少k时，用base64进行转化
+                //否则用 file-loader 进行转化
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 200 * 1024,
+                        esModule: false
+                    }
+                }
+            },
+            // {
+            //     test: /\.(png|jpeg|gif)$/,
+            //     use: {
+            //         loader: 'file-loader',
+            //         options: {
+            //             esModule: false
+            //         }
+            //     }
+            // },
+            {
                 test: /\.js$/,
                 use: {
                     loader: "babel-loader",
