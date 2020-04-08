@@ -27,8 +27,9 @@ module.exports = {
     mode: 'production',   //打包模式 分为 production development
     entry: "./src/index.js",   //入口
     output: {   //出口
-        filename: "dist.[hash:8].js",    //打包后的文件名  限制hash为8位
+        filename: "js/dist.[hash:8].js",    //打包后的文件名  限制hash为8位
         path: path.resolve(__dirname, 'dist'),   //路径必须是绝对路径
+        // publicPath: "https://www.baidu.com/"  //publicPath会被加载所有引用的静态资源之前(例如 .png .js .css)
     },
     plugins: [     //数组，存放所有的webpack插件
         new HtmlWebpackPlugin({
@@ -42,7 +43,7 @@ module.exports = {
         }),
 
         new MiniCssExtractPlugin({
-            filename: 'main.css',   //将所有 css 抽出到 main.css 中
+            filename: 'css/main.css',   //将所有 css 抽出到 main.css 中
         }),
 
         new webpack.ProvidePlugin({    //在每个模块中都注入 $
@@ -66,8 +67,11 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 200 * 1024,
-                        esModule: false
+                        // limit: 200 * 1024,
+                        limit: 1,
+                        esModule: false,
+                        outputPath: 'img/',
+                        // publicPath: 'https://www.baidu.com/img/',  //如果只有图片需要用cdn方式引入时，可以用单独配置publicPath
                     }
                 }
             },
