@@ -5,9 +5,18 @@ module.exports = {
     mode: "production",
     //多入口
     entry: {
+        //多页面，配置多个入口
         home: "./src/index.js",
         // other: "./src/other.js"
     },
+    //1) 源码映射，会单独生成.map文件，代码报错，会标识当前报错的列和行
+    // devtool: "source-map",    //增加映射文件，可以帮我们调试源代码
+    //2) 不会产生单独文件，但会显示行和列
+    //devtool: "eval-source-map",
+    //3) 不会产生列，但是是一个单独的映射文件
+    //devtool: "cheap-module-source-map",
+    //4) 不会产生列，集成在打包后的文件中，不会产生文件
+    devtool: "cheap-module-eval-source-map",
     output: {
         //[name]代表home或者other
         filename: "js/[name].[hash].js",
