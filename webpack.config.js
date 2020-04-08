@@ -8,7 +8,7 @@ let webpack = require('webpack');
 
 module.exports = {
     devServer: {    //开发服务器的配置
-        port: 8888,
+        port: 8080,
         progress: true,
         contentBase: './dist',
         open: true,    //自动打开浏览器
