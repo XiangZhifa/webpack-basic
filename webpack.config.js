@@ -16,7 +16,13 @@ module.exports = {
     //3) 不会产生列，但是是一个单独的映射文件
     //devtool: "cheap-module-source-map",
     //4) 不会产生列，集成在打包后的文件中，不会产生文件
-    devtool: "cheap-module-eval-source-map",
+    // devtool: "cheap-module-eval-source-map",
+    watch: true,
+    watchOptions: {    //监控的选项
+        poll: 10,   //每秒监控10次
+        aggregateTimeout: 500,    //防抖，500毫秒内打包一次
+        ignored: /node_modules/,    //需要忽略的文件，不进行监控
+    },
     output: {
         //[name]代表home或者other
         filename: "js/[name].[hash].js",
