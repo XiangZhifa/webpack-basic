@@ -27,7 +27,23 @@ module.exports = {
     //     aggregateTimeout: 500,    //防抖，500毫秒内打包一次
     //     ignored: /node_modules/,    //需要忽略的文件，不进行监控
     // },
-
+    devServer: {
+        // 1) 配置一个代理，用于转发请求
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                pathRewrite: {'/api': ''}
+            }
+        },
+        // 2) 前端直接mock数据
+        before(app) {   //webpack-dev-server提供的方法
+            app.get('/mock', (req,res) => {
+                res.json({name:'Webpack Server Mock Data'});
+            });
+        },
+        // 3) 在服务端中直接启动 webpack，端口 与 服务端端口 一致，可以避免代理
+        // 第3种方法，详见 server.js 中 app.use(webpackMiddleWare(webpackCompiler))
+    },
     output: {
         //[name]代表home或者other
         filename: "js/[name].[hash].js",
@@ -66,7 +82,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         //复制文件到dist文件夹下
         new CopyWebpackPlugin([
-            {from:'./doc',to:'./doc'}    //从 根目录下的doc目录 拷贝到 dist目录下的 doc 目录
+            {from: './doc', to: './doc'}    //从 根目录下的doc目录 拷贝到 dist目录下的 doc 目录
         ]),
         //在打包后的代码中添加注释
         new Webpack.BannerPlugin('make by Jeffery')
