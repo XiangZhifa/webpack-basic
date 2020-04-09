@@ -84,6 +84,12 @@ module.exports = {
         ]
     },
     plugins: [
+        //配置环境变量(dev/production)
+        new Webpack.DefinePlugin({
+            ENV: JSON.stringify('production'),
+            FLAG: 'true',
+            EXPRESSION: '1+1'
+        }),
         //new 多个 HtmlWebpackPlugin 进行多页应用配置
         new HtmlWebpackPlugin({
             template: "./src/index.html",

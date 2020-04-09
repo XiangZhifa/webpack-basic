@@ -1,5 +1,15 @@
 import 'bootstrapCss';
 
+if (ENV === 'production') {
+    console.log('http://jefferyxiang.cn');
+} else {
+    console.log('http://localhost:3000')
+}
+
+console.log(typeof FLAG);
+
+console.log(EXPRESSION);
+
 console.log('HomePage');
 
 class HomePage {
