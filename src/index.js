@@ -1,4 +1,7 @@
 import 'bootstrapCss';
+const jquery = require('jquery');
+
+console.log(jquery);
 
 if (ENV === 'production') {
     console.log('http://jefferyxiang.cn');

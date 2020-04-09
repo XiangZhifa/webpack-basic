@@ -67,6 +67,7 @@ module.exports = {
         path: path.resolve(__dirname, "dist")
     },
     module: {
+        noParse: [/jquery/],    //配置 不需要 解析 的模块，减少打包时间
         rules: [
             {
                 test: /\.css$/,
