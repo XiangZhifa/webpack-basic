@@ -149,6 +149,6 @@ module.exports = {
         ]),
 
         //在打包后的代码中添加注释
-        new Webpack.BannerPlugin('make by Jeffery')
+        new Webpack.BannerPlugin('make by Jeffery Xiang')
     ]
 };
