@@ -75,6 +75,8 @@ module.exports = {
             },
             {
                 test: /\.js$/,
+                exclude: /node_modules/,   //排除不需要打包的文件
+                // include: path.resolve('src'),
                 use: {
                     loader: "babel-loader",
                     options: {
@@ -85,6 +87,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new Webpack.IgnorePlugin(/\.\/locale/, /moment/),    //配置 IgnorePlugin 忽略一些包内部的引用文件
         //配置环境变量(dev/production)
         new Webpack.DefinePlugin({
             ENV: JSON.stringify('production'),
