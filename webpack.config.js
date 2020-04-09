@@ -87,13 +87,22 @@ module.exports = {
         ]
     },
     plugins: [
-        new Webpack.IgnorePlugin(/\.\/locale/, /moment/),    //配置 IgnorePlugin 忽略一些包内部的引用文件
+
+        // new Webpack.DllPlugin({    //将文件打包成动态链接库
+        //     name: '_dll_[name]',
+        //     path: path.resolve(__dirname,'dist','manifest.json')
+        // }),
+
+        //配置 IgnorePlugin 忽略一些包内部的引用文件
+        new Webpack.IgnorePlugin(/\.\/locale/, /moment/),
+
         //配置环境变量(dev/production)
         new Webpack.DefinePlugin({
             ENV: JSON.stringify('production'),
             FLAG: 'true',
             EXPRESSION: '1+1'
         }),
+
         //new 多个 HtmlWebpackPlugin 进行多页应用配置
         new HtmlWebpackPlugin({
             template: "./src/index.html",
@@ -111,10 +120,12 @@ module.exports = {
         // 3) bannerPlugin  内置
         //每次打包之前清空dist文件夹
         new CleanWebpackPlugin(),
+
         //复制文件到dist文件夹下
         new CopyWebpackPlugin([
             {from: './doc', to: './doc'}    //从 根目录下的doc目录 拷贝到 dist目录下的 doc 目录
         ]),
+
         //在打包后的代码中添加注释
         new Webpack.BannerPlugin('make by Jeffery')
     ]
