@@ -6,6 +6,26 @@ const Webpack = require('webpack');
 const Happypack = require('happypack');
 
 module.exports = {
+    //配置splitChunks抽离公共代码
+    // optimization: {
+    //     splitChunks: {    //分割代码块
+    //         cacheGroups: {    //缓存组
+    //             common: {    //公共模块
+    //                 chunks: "initial",
+    //                 minSize: 0,
+    //                 minChunks: 2,
+    //             }
+    //         }
+    //     },
+    //     vendor: {
+    //         priority: 1,
+    //         test: /node_modules/,    //抽离第三方包
+    //         chunks: "initial",
+    //         minSize: 0,
+    //         minChunks: 2,
+    //     }
+    // },
+
     mode: "production",
     //多入口
     entry: {
