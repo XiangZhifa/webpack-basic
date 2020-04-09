@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Webpack = require('webpack');
+
 module.exports = {
     mode: "production",
     //多入口
@@ -27,6 +28,22 @@ module.exports = {
     //     aggregateTimeout: 500,    //防抖，500毫秒内打包一次
     //     ignored: /node_modules/,    //需要忽略的文件，不进行监控
     // },
+    resolve: {    //解析 第三方包
+        modules: [path.resolve('node_modules')],
+
+        // 指定 package.json 中的入口字段
+        // mainFields: ['style','main'],
+
+        // 指定 入口文件的名字 默认是index.js
+        // mainFiles: ['index.js'],
+
+        // 按拓展名寻找，这样引入文件时可以简化
+        // extensions: ['js', 'css'],
+
+        alias: {    //别名
+            bootstrapCss: 'bootstrap/dist/css/bootstrap.css'
+        }
+    },
     devServer: {
         // 1) 配置一个代理，用于转发请求
         proxy: {
@@ -37,8 +54,8 @@ module.exports = {
         },
         // 2) 前端直接mock数据
         before(app) {   //webpack-dev-server提供的方法
-            app.get('/mock', (req,res) => {
-                res.json({name:'Webpack Server Mock Data'});
+            app.get('/mock', (req, res) => {
+                res.json({name: 'Webpack Server Mock Data'});
             });
         },
         // 3) 在服务端中直接启动 webpack，端口 与 服务端端口 一致，可以避免代理
@@ -51,6 +68,10 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
             {
                 test: /\.js$/,
                 use: {

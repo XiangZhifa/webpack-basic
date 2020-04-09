@@ -1,3 +1,5 @@
+import 'bootstrapCss';
+
 console.log('HomePage');
 
 class HomePage {
