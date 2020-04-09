@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Webpack = require('webpack');
+const Happypack = require('happypack');
 
 module.exports = {
     mode: "production",
@@ -73,6 +74,16 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
+
+            //利用happypack进行多线程打包
+            // {
+            //     test: /\.js$/,
+            //     exclude: /node_modules/,   //排除不需要打包的文件
+            //     // include: path.resolve('src'),
+            //     use: 'happypack/loader?id=js'
+            // }
+
+            //正常打包（非多线程打包）
             {
                 test: /\.js$/,
                 exclude: /node_modules/,   //排除不需要打包的文件
@@ -87,8 +98,19 @@ module.exports = {
         ]
     },
     plugins: [
+        //利用happypack进行多线程打包
+        // new Happypack({
+        //     id: 'js',
+        //     use: [{
+        //         loader: "babel-loader",
+        //         options: {
+        //             presets: ["@babel/preset-env"]
+        //         }
+        //     }]
+        // }),
 
-        // new Webpack.DllPlugin({    //将文件打包成动态链接库
+        //利用 DllPlugin 将文件打包成动态链接库
+        // new Webpack.DllPlugin({
         //     name: '_dll_[name]',
         //     path: path.resolve(__dirname,'dist','manifest.json')
         // }),

@@ -25,6 +25,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
+    "happypack": "^5.0.1",
     "jquery": "^3.4.1",
     "webpack-dev-middleware": "^3.7.2"
   }
